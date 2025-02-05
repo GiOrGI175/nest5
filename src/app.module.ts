@@ -10,10 +10,14 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({isGlobal: true}),
-    MongooseModule.forRoot(process.env.MONGO_URL),
-    UsersModule, 
-    PostsModule, ProductsModule, AuthModule
+    ConfigModule.forRoot({ isGlobal: true }),
+    MongooseModule.forRoot(
+      'mongodb+srv://admin:Admin@cluster0.fowjb.mongodb.net/?',
+    ),
+    UsersModule,
+    PostsModule,
+    ProductsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

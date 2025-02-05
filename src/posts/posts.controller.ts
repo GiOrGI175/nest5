@@ -1,18 +1,30 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { HasUserId } from './guards/hasUserId.guard';
 import { IsAuthGuard } from 'src/auth/auth.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('posts')
 @UseGuards(IsAuthGuard)
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   @Post()
-  create(@Req() request,  @Body() createPostDto: CreatePostDto) {
-    const userId = request.userId
+  create(@Req() request, @Body() createPostDto: CreatePostDto) {
+    const userId = request.userId;
     return this.postsService.create(userId, createPostDto);
   }
 
@@ -32,8 +44,8 @@ export class PostsController {
   }
 
   @Delete(':id')
-  remove(@Req() request,  @Param('id') id: string) {
-    const userId = request.userId
+  remove(@Req() request, @Param('id') id: string) {
+    const userId = request.userId;
     return this.postsService.remove(userId, id);
   }
 }
